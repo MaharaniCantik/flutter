@@ -24,7 +24,7 @@ class TaskPage extends StatelessWidget {
                 );
               },
 
-              child: const Text('Tambah Latihan Tugas'),
+              child: const Text('Tambah Tugas baru'),
             ),
           ],
         ),
