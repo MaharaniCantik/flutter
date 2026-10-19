@@ -28,8 +28,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
     if (tanggalDipilih != null) {
       setState(() {
-        deadline:
-        tanggalDipilih;
+        deadline = tanggalDipilih;
       });
     }
   }
@@ -96,6 +95,55 @@ class _AddTaskPageState extends State<AddTaskPage> {
               deadline == null
                   ? 'Deadline belum ditentukan'
                   : 'Deadline: ${deadline!.day}/${deadline!.month}/${deadline!.year}',
+            ),
+
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                if (matkulController.text.isEmpty ||
+                    namaTugasController.text.isEmpty ||
+                    deadline == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Lengkapi semua data terlebih dahulu!'),
+                    ),
+                  );
+                  return;
+                }
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text(
+                        'Tugas berhasil disimpan!',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      content: Text(
+                        'Matakuliah: ${matkulController.text}\n'
+                        'Judul tugas: ${namaTugasController.text}\n'
+                        'Deadline: ${deadline!.day}/${deadline!.month}/${deadline!.year}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          letterSpacing: 2,
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('oke'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: const Text('Simpan Tugas'),
             ),
           ],
         ),
